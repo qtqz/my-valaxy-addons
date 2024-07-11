@@ -24,7 +24,7 @@ let path = '/img/face/' + faceSets + '/' + faceName + '.' + (props.suffix || suf
 
 <template>
   <div class="v-a-face" :style="size ? { height: size } : null">
-    <img :src="path">
+    <img class="v-a-face-img" :src="path">
   </div>
 </template>
 
@@ -34,7 +34,7 @@ let path = '/img/face/' + faceSets + '/' + faceName + '.' + (props.suffix || suf
   height: v-bind(defaultSize);
   margin: 1px 2px;
 
-  img {
+  img.v-a-face-img {
     display: inline-block;
     margin: 0;
     max-height: 100%;
