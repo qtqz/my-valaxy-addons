@@ -276,6 +276,7 @@ const list = {
 onMounted(() => {
   try {
     let h = window.location.hash
+    if (window.location.pathname.match(/posts|about/)) return
     if (h == 'index_page') {
       window.location.hash = ''
     } else if (h) {

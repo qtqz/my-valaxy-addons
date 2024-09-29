@@ -1,246 +1,54 @@
 <script lang="ts" setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+// @ts-ignore
+import { fallingCreate, fallingDestroy, version, defaultConfig } from 'natural-falling-js'
 
+let isSpringFestival = ref(false)
+let m = new Date().getMonth() + 1
+//粗略判定每年1月2月为春节期间
+if (m == 1 || m == 2) {
+  isSpringFestival.value = true
+}
+
+
+const cfg = {
+    open: true,//总开关
+    custom: true,//总自定义开关，仅访客的有效，如果单独使用js，访客不能自定义
+    changeImg: true,//子自定义开关，**仅访客的有效**
+    changeShow: true,//子自定义开关，**仅访客的有效**
+    changeRain: true,//子自定义开关，**仅访客的有效**
+    imgSetting: [],//图案，有['petal','leaf','snow','rain']'snow'
+    imgNumSetting: [5, 5, 40, 20],//每个图案的数量
+    showSetting: {
+        fadeIn: true,//淡入（下雨始终淡入）
+        fadeOut: true,//淡出
+        time: 16//几秒后开始淡出
+    },
+    rainSetting: {
+        wind_speed: 40,//风力
+        wind_deviation: 4,//横向风力误差
+        wind_angle: 262,//风向，从+x方向逆时针角度，270为垂直向下
+        hasBounce: true,//落地溅水花
+        numLevel: 0.3//淡入速度，0~1之间，**访客不可修改**
+    },
+    gravity: 0.163,//重力，**访客不可修改**
+    zIndex: 100,//自定义canvas的css z-index，可以实现不遮挡网页正文
+    imgSize: [40, 40, 2.5],//图案大小（花瓣，树叶，天雪），**访客不可修改**，雨滴的大小跟风力有关
+    wind_x: null// -35//前三种图案飘落横向风力，正负决定方向
+}
+let openFall = true
+onMounted(() => {
+  openFall ? fallingCreate(cfg) : 0
+})
+
+onUnmounted(() => {
+  openFall ? fallingDestroy() : 0
+})
 </script>
 
 <template>
-  <div class="dl" id="dl">
-    <!-- 给你的网站添加灯笼特效https://blog.tomys.top/2021-02/2021newyear/ -->
-    <div class="deng-box">
-      <div class="deng">
-        <div class="xian"></div>
-        <div class="deng-a">
-          <div class="deng-b">
-            <div class="deng-t">节</div>
-          </div>
-        </div>
-        <div class="shui shui-a">
-          <div class="shui-c"></div>
-          <div class="shui-b"></div>
-        </div>
-      </div>
-    </div>
-    <div class="deng-box1">
-      <div class="deng">
-        <div class="xian"></div>
-        <div class="deng-a">
-          <div class="deng-b">
-            <div class="deng-t">春</div>
-          </div>
-        </div>
-        <div class="shui shui-a">
-          <div class="shui-c"></div>
-          <div class="shui-b"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <SpringLantern v-if="isSpringFestival">
+  </SpringLantern>
 </template>
 
-<style lang="scss" scoped>
-@use "sass:map";
-
-#dl {
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 99;
-}
-
-.deng-box {
-  position: absolute;
-  top: -40px;
-  right: 10vw;
-}
-
-.deng-box1 {
-  position: absolute;
-  top: -30px;
-  right: 14vw;
-}
-
-.deng {
-  position: relative;
-  width: 120px;
-  height: 90px;
-  margin: 50px;
-  background: #d8000f;
-  background: rgba(216, 0, 15, 0.8);
-  border-radius: 50% 50%;
-  -webkit-transform-origin: 50% -100px;
-  transform-origin: 50% -100px;
-  animation: swing 5s infinite ease-in-out;
-  -webkit-animation: swing 5s infinite ease-in-out;
-  box-shadow: -5px 5px 30px 4px rgba(252, 144, 61, 1);
-}
-
-.deng-box .deng {
-  animation: swing 3s infinite ease-in-out;
-  -webkit-animation: swing 3s infinite ease-in-out;
-}
-
-.deng-box1 .deng {
-  animation: swing 5s infinite ease-in-out;
-  -webkit-animation: swing 5s infinite ease-in-out;
-}
-
-.deng-a {
-  width: 100px;
-  height: 90px;
-  background: #d8000f;
-  background: rgba(216, 0, 15, 0.1);
-  margin: 12px 8px 8px 8px;
-  border-radius: 50% 50%;
-  border: 2px solid #dc8f03;
-}
-
-.deng-b {
-  width: 45px;
-  height: 90px;
-  background: #d8000f;
-  background: rgba(216, 0, 15, 0.1);
-  margin: -4px 8px 8px 26px;
-  border-radius: 50% 50%;
-  border: 2px solid #dc8f03;
-}
-
-.xian {
-  position: absolute;
-  top: -20px;
-  left: 60px;
-  width: 2px;
-  height: 20px;
-  background: #dc8f03;
-}
-
-.shui-a {
-  position: relative;
-  width: 5px;
-  height: 20px;
-  margin: -5px 0 0 59px;
-  -webkit-animation: swing 4s infinite ease-in-out;
-  animation: swing 4s infinite ease-in-out;
-  -webkit-transform-origin: 50% -45px;
-  transform-origin: 50% -45px;
-  background: #ffa500;
-  border-radius: 0 0 5px 5px;
-}
-
-.shui-b {
-  position: absolute;
-  top: 14px;
-  left: -2px;
-  width: 10px;
-  height: 10px;
-  background: #dc8f03;
-  border-radius: 50%;
-}
-
-.shui-c {
-  position: absolute;
-  top: 18px;
-  left: -2px;
-  width: 10px;
-  height: 35px;
-  background: #ffa500;
-  border-radius: 0 0 0 5px;
-}
-
-.deng:before {
-  position: absolute;
-  top: -7px;
-  left: 29px;
-  height: 12px;
-  width: 60px;
-  content: " ";
-  display: block;
-  z-index: 999;
-  border-radius: 5px 5px 0 0;
-  border: solid 1px #dc8f03;
-  background: #ffa500;
-  background: linear-gradient(to right, #dc8f03, #ffa500, #dc8f03, #ffa500, #dc8f03);
-}
-
-.deng:after {
-  position: absolute;
-  bottom: -7px;
-  left: 10px;
-  height: 12px;
-  width: 60px;
-  content: " ";
-  display: block;
-  margin-left: 20px;
-  border-radius: 0 0 5px 5px;
-  border: solid 1px #dc8f03;
-  background: #ffa500;
-  background: linear-gradient(to right, #dc8f03, #ffa500, #dc8f03, #ffa500, #dc8f03);
-}
-
-.deng-t {
-  font-family: 华文行楷, Arial, Lucida Grande, Tahoma, sans-serif;
-  font-size: 3.2rem;
-  color: #dc8f03;
-  font-weight: bold;
-  line-height: 85px;
-  text-align: center;
-}
-
-.night .deng-t,
-.night .deng-box,
-.night .deng-box1 {
-  background: transparent !important;
-}
-
-@media screen and (max-width: 560px) {
-  .dl {
-    right: -17vw;
-    transform: scale(0.70);
-  }
-
-  .deng-box1 {
-    right: 19vw;
-  }
-}
-
-@keyframes swing {
-  0% {
-    transform: rotate(-10deg)
-  }
-
-  50% {
-    transform: rotate(10deg)
-  }
-
-  100% {
-    transform: rotate(-10deg)
-  }
-}
-
-@-moz-keyframes swing {
-  0% {
-    -moz-transform: rotate(-10deg)
-  }
-
-  50% {
-    -moz-transform: rotate(10deg)
-  }
-
-  100% {
-    -moz-transform: rotate(-10deg)
-  }
-}
-
-@-webkit-keyframes swing {
-  0% {
-    -webkit-transform: rotate(-10deg)
-  }
-
-  50% {
-    -webkit-transform: rotate(10deg)
-  }
-
-  100% {
-    -webkit-transform: rotate(-10deg)
-  }
-}
-</style>
+<style lang="scss" scoped></style>

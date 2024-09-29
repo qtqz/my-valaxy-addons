@@ -16,12 +16,14 @@ const checkPwd = () => {
   if (p == props.password) {
     result.value = true
     clearInterval(t)
-    localStorage.setItem('pwd', p)
+    localStorage.setItem('pwd', p);
+    (document.querySelector('body') as HTMLElement).setAttribute('style', '')
   }
 
 
 }
 onMounted(() => {
+  (document.querySelector('body') as HTMLElement).setAttribute('style', 'user-select: none;')
   t = setInterval(() => {
     let el = (document.querySelector('.pwd-main') as HTMLElement)
     if (!el) (document.querySelector('body') as HTMLElement).remove()
@@ -34,8 +36,9 @@ onMounted(() => {
     if (d + o + po + t + l != 'block1fixed0px0px') (document.querySelector('body') as HTMLElement).remove()
   }, 1000)
   if (localStorage.getItem('pwd') == props.password) {
-    result.value = true
     clearInterval(t)
+    result.value = true;
+    (document.querySelector('body') as HTMLElement).setAttribute('style', '')
   }
 })
 </script>
@@ -68,12 +71,6 @@ onMounted(() => {
 }
 
 .pwd-main {
-  .yun-cloud {
-    z-index: 1000;
-    position: fixed;
-    bottom: 0;
-  }
-
   width: 100%;
   height: 100%;
   /*background-color: #fffa;*/
@@ -86,6 +83,14 @@ onMounted(() => {
   position: fixed;
   z-index: 999;
   text-align: center;
+}
+
+.pwd-main {
+  .yun-cloud {
+    z-index: 1000;
+    position: fixed;
+    bottom: 0;
+  }
 
   .pwd-widget {
     position: relative;

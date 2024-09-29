@@ -1,6 +1,6 @@
 {
   "name": "valaxy-addon-weather",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Template for Valaxy Addon.",
   "repository": "https://github.com/YunYouJun/valaxy",
   "keywords": [
@@ -9,5 +9,8 @@
     "template"
   ],
   "main": "index.ts",
-  "global": true
+  "global": true,
+  "dependencies": {
+    "natural-falling-js": "^0.8.2"
+  }
 }
