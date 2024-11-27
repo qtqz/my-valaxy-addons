@@ -16,15 +16,16 @@ const props = defineProps({
   size: String
 })
 const suffix = options.value.options?.defaultSuffix || 'png',
-  defaultSize = options.value.options?.defaultSize || '3.5em'
+  defaultSize = options.value.options?.defaultSize || '3.5em',
+  path = options.value.options?.path || '/img/face/'
 
 let [faceSets, faceName] = props.face.split(':')
-let path = '/img/face/' + faceSets + '/' + faceName + '.' + (props.suffix || suffix)
+let fullPath = path + faceSets + '/' + faceName + '.' + (props.suffix || suffix)
 </script>
 
 <template>
   <div class="v-a-face" :style="size ? { height: size } : null">
-    <img class="v-a-face-img" :src="path">
+    <img class="v-a-face-img" :src="fullPath">
   </div>
 </template>
 

@@ -2,6 +2,8 @@
 
 Valaxy 表情包插件，让你在文章中更方便地使用表情包（行内图片表情）。需要自己在本地准备好表情图片资源。
 
+![效果图](../img/faces.webp)
+
 ## Usage
 
 ```bash
@@ -30,6 +32,7 @@ export default defineValaxyConfig({
 
 - defaultSize：全局默认表情图片高度，css 长度，默认`3.5em`，也可以在使用时传参单独定义每个表情
 - defaultSuffix：全局默认后缀名，默认`png`，也可以在使用时传参单独定义每个表情
+- path：表情包和表情名之前的路径，默认`/img/face/`，你可以设为其他网站的
 
 ### 准备表情包
 

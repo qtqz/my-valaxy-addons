@@ -7,4 +7,8 @@ export interface faceOptions {
      * 后缀名，默认 png
      */
     defaultSuffix?: string
+    /**
+     * 表情包和表情名之前的路径，默认`/img/face/`
+     */
+    path?: string
   }
