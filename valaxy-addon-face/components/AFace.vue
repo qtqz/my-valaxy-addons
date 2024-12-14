@@ -19,13 +19,19 @@ const suffix = options.value.options?.defaultSuffix || 'png',
   defaultSize = options.value.options?.defaultSize || '3.5em',
   path = options.value.options?.path || '/img/face/'
 
-let [faceSets, faceName] = props.face.split(':')
-let fullPath = path + faceSets + '/' + faceName + '.' + (props.suffix || suffix)
+let [faceSets, fileName] = props.face.split(':')
+
+let hasSuffix = fileName.match(/\.(jpg|png|webp|gif|avif|jiff)$/i)
+if (!hasSuffix) {
+  fileName += '.' + (props.suffix || suffix)
+}
+
+let fullPath = path + faceSets + '/' + fileName
 </script>
 
 <template>
   <div class="v-a-face" :style="size ? { height: size } : null">
-    <img class="v-a-face-img" :src="fullPath">
+    <img class="v-a-face-img" :src="fullPath" loading="lazy">
   </div>
 </template>
 

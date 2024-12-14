@@ -61,11 +61,19 @@ public
 
 ### 在 Markdown 中使用
 
+使用`face`属性指定表情，格式`表情包名:表情名[后缀名]`。也可不写后缀名，此时根据`suffix`（传参的或全局的）来确定后缀名，默认`png`。
+
 ```vue
 <!--  your-post.md  -->
 <!--表情（public/img/face/mys/27.png）-->
 <AFace face="mys:27"/>
+
+<!--表情（public/img/face/mys/27.gif）-->
 <!--       表情         尺寸           后缀名-->
 <AFace face="mys:27" size='1.8em' suffix='gif'/>
+
+<!--表情（public/img/face/mys/27.webp）-->
+<!--       表情带后缀名         尺寸      -->
+<AFace face="mys:27.webp" size='1.8em'/>
 ```
 

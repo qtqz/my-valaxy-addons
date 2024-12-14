@@ -47,7 +47,7 @@ onMounted(() => {
       document.querySelector(props.selector).addEventListener('click', () => {
         show.value = !show.value
       })
-    }, 500)
+    }, 1000)
   } else {
     defaultBtn.value = true
   }
@@ -57,13 +57,13 @@ onUnmounted(() => {
   //removeEventListener('click',)
 })
 
-const defaultBtn = ref(false)
-const show = ref(false)
-const nickname = ref('')
-const message = ref('')
-const btn = ref()
-const maxMessageLength = 300; // 设置留言内容的最大长度
-const remainingCharacters = ref(maxMessageLength);
+let defaultBtn = ref(false)
+let show = ref(false)
+let nickname = ref('')
+let message = ref('')
+let btn = ref()
+let maxMessageLength = 300; // 设置留言内容的最大长度
+let remainingCharacters = ref(maxMessageLength);
 let result = ref('提交')
 let canSubmit = true;
 
