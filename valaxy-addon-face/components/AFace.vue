@@ -21,7 +21,7 @@ const suffix = options.value.options?.defaultSuffix || 'png',
 
 let [faceSets, fileName] = props.face.split(':')
 
-let hasSuffix = fileName.match(/\.(jpg|png|webp|gif|avif|jiff)$/i)
+let hasSuffix = fileName.match(/\.(jpg|jpeg|png|webp|gif|avif|jiff)$/i)
 if (!hasSuffix) {
   fileName += '.' + (props.suffix || suffix)
 }

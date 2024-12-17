@@ -1,5 +1,6 @@
 <template>
   <button title="留言反馈" @click="show = !show" v-show="defaultBtn">留言反馈</button>
+  <Transition name="modal">
   <div class="feedback-container markdown-body" v-if="show">
     <div class="feedback-form">
       <p style="font-size: 1.5em;font-weight: bold;">留言反馈</p>
@@ -19,6 +20,7 @@
       <button @click="show = !show">返回</button>
     </div>
   </div>
+</Transition>
 </template>
 
 <script setup>
@@ -147,6 +149,7 @@ const submitMessage = () => {
   z-index: 15;
   pointer-events: none;
   text-align: initial;
+  transition: all 0.3s ease;
 }
 
 .feedback-form {
@@ -193,5 +196,15 @@ textarea {
 
 .feedback-container button:hover {
   background: #0056b3;
+}
+
+.modal-enter-from {
+  opacity: 0;
+  transform: scale(1.1);
+}
+
+.modal-leave-to {
+  opacity: 0;
+  transform: scale(1.1);
 }
 </style>
