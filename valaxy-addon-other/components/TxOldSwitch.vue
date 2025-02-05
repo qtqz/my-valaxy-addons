@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 /**
- * 
+ * 新旧站点切换提示，包括路径格式与网站部署平台
  */
 import { onMounted, ref } from 'vue'
 
@@ -297,6 +297,14 @@ onMounted(() => {
     console.warn('转换失败：', e)
     isHash.value = true
   }
+  if (location.href.match(/github\.io/)) {
+    setTimeout(() => {
+      let ann = document.querySelector('.gh-announcement')
+      // @ts-ignore
+      ann.style.display = 'unset'
+    }, 1000)
+  }
+
 })
 </script>
 
@@ -313,13 +321,6 @@ onMounted(() => {
 <style lang="scss">
 @use "sass:map";
 
-.disabled {
-  user-select: none;
-  opacity: 0;
-  transition: opacity 1s;
-  z-index: -1 !important;
-}
-
 .old-widget {
   right: 2rem;
   bottom: 2rem;
@@ -328,21 +329,26 @@ onMounted(() => {
   text-align: center;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 8px 0 10px 8px #eee;
+  box-shadow: 3px 0 10px 5px #eee;
   width: 400px;
   height: 250px;
   height: fit-content;
   box-sizing: border-box;
-  padding: 2rem 2rem 1rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: #fffa;
+  background-color: rgba(255, 255, 255, 0.9);
 
   .old-title {
     font-size: 20px;
     font-weight: 900;
+  }
+
+  .info {
+    line-height: 1.5;
+    padding: 0.5rem 0;
   }
 
   button {

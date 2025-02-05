@@ -12,7 +12,7 @@
       <p>请输入您想说的话。注意，请勿输入任何联系方式，我们不会添加或主动联系您。如需回复，请通过其他渠道留言。</p>
       <ul>
         <li>邮箱：qzqz7@qq.com</li>
-        <li>B 站：轻稚天雪</li>
+        <li>B 站：<a href='https://space.bilibili.com/272073535' target='_blank'>轻稚天雪</a></li>
       </ul>
       <div v-show="false">验证码：</div>
       <br>

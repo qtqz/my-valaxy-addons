@@ -37,14 +37,8 @@ onMounted(() => {
       hm.src = props.src || ''
       var s = document.getElementsByTagName("head")[0] as HTMLElement
       s.append(hm)
-    }, 3000)*/
+    }, 3000)
     setTimeout(() => {
-      /**
-       * 看点击的元素是否是所需，但如果点击的瞬间所需内被点击元素消失，就找不到所需父元素了
-       * 需要添加的：设置，碧梨，留言，捐助，历史，文章心，两个搜索，亮暗，
-       * data-umami-event=""
-       * 改标题
-       */
       document.addEventListener('click', function (event) {
         let t = event.target as HTMLElement
         let b
@@ -60,7 +54,7 @@ onMounted(() => {
         }
       })
 
-    }, 2000)
+    }, 2000)*/
   }
 })
 </script>

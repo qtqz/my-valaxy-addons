@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <TxSitePwd password="ciallo2"></TxSitePwd>
+  <!--<TxSitePwd password="ciallo2"></TxSitePwd>-->
   <TxAnalyse></TxAnalyse>
   <TxOldSwitch></TxOldSwitch>
   <FeedbackBtn :selector="'.yun-icon-btn.feedback'"></FeedbackBtn>
