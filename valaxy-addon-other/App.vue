@@ -6,5 +6,5 @@
   <!--<TxSitePwd password="ciallo2"></TxSitePwd>-->
   <TxAnalyse></TxAnalyse>
   <TxOldSwitch></TxOldSwitch>
-  <FeedbackBtn :selector="'.yun-icon-btn.feedback'"></FeedbackBtn>
+  <FeedbackModal :selector="'.yun-icon-btn.feedback'"></FeedbackModal>
 </template>

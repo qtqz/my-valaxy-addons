@@ -1,26 +1,29 @@
 <template>
   <button title="留言反馈" @click="show = !show" v-show="defaultBtn">留言反馈</button>
-  <Transition name="modal">
-  <div class="feedback-container markdown-body" v-if="show">
-    <div class="feedback-form">
-      <p style="font-size: 1.5em;font-weight: bold;">留言反馈</p>
-      <input v-model="nickname" placeholder="请输入昵称" maxlength="16">
-      <textarea v-model="message" placeholder="请输入留言内容" @input="checkMessageLength"></textarea>
-      <div style="font-size: 12px;margin-top: -12px;text-align: right;color: red;" v-show="remainingCharacters <= 0">
-        字数过多！
+  <Teleport to="body">
+    <Transition name="modal">
+      <div class="feedback-container" v-if="show">
+        <div class="feedback-form">
+          <p style="font-size: 1.5em;font-weight: bold;">留言反馈</p>
+          <input v-model="nickname" placeholder="请输入昵称" maxlength="16">
+          <textarea v-model="message" placeholder="请输入留言内容" @input="checkMessageLength"></textarea>
+          <div style="font-size: 12px;margin-top: -12px;text-align: right;color: red;"
+            v-show="remainingCharacters <= 0">
+            字数过多！
+          </div>
+          <p>请输入您想说的话。注意，请勿输入任何联系方式，因为我们不会添加或主动联系您。如需回复，请通过其他渠道留言。</p>
+          <ul>
+            <li>邮箱：qzqz7@qq.com</li>
+            <li>B 站：<a href='https://space.bilibili.com/272073535' target='_blank'>轻稚天雪</a></li>
+          </ul>
+          <div v-show="false">验证码：</div>
+          <br>
+          <button @click="throttledSubmit" ref="btn">{{ result }}</button>
+          <button @click="show = !show">返回</button>
+        </div>
       </div>
-      <p>请输入您想说的话。注意，请勿输入任何联系方式，我们不会添加或主动联系您。如需回复，请通过其他渠道留言。</p>
-      <ul>
-        <li>邮箱：qzqz7@qq.com</li>
-        <li>B 站：<a href='https://space.bilibili.com/272073535' target='_blank'>轻稚天雪</a></li>
-      </ul>
-      <div v-show="false">验证码：</div>
-      <br>
-      <button @click="throttledSubmit" ref="btn">{{ result }}</button>
-      <button @click="show = !show">返回</button>
-    </div>
-  </div>
-</Transition>
+    </Transition>
+  </Teleport>
 </template>
 
 <script setup>
@@ -149,7 +152,7 @@ const submitMessage = () => {
   z-index: 15;
   pointer-events: none;
   text-align: initial;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
 }
 
 .feedback-form {
@@ -180,31 +183,43 @@ textarea {
 }
 
 textarea {
-  height: 7em;
+  height: 9em;
+  resize: vertical;
+  word-break: break-all;
+}
+
+.dark input,
+.dark textarea {
+  background-color: #222;
 }
 
 .feedback-container button {
   width: 100%;
   padding: 8px;
-  background: #007bff;
+  background: #2196f3;
   color: #fff;
   border: none;
-  border-radius: 3px;
+  border-radius: 10px;
   cursor: pointer;
+  opacity: 0.8;
   margin: 4px 0;
+  padding: 10px 20px;
+  border: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
 }
 
 .feedback-container button:hover {
-  background: #0056b3;
+  opacity: 0.6;
 }
 
 .modal-enter-from {
   opacity: 0;
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .modal-leave-to {
   opacity: 0;
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 </style>

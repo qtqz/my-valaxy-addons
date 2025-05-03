@@ -29,8 +29,25 @@ onMounted(() => {
           screen_widch: screen.width
         }),
       })
-
     }, 100)
+    document.addEventListener('click', (e) => {
+      // @ts-ignore
+      let a = e.target.closest('a')
+      if (a && !a.href.match(/javascript|ra2map\./)) {
+        fetch('https://api.ra2map.com/recordvisit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            url: a.href,
+            screen_widch: 'click'+ a.textContent
+          }),
+        })
+
+      }
+    })
+
     /*setTimeout(() => {
       var _hmt = _hmt || []
       var hm = document.createElement("script")

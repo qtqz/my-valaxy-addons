@@ -39,6 +39,14 @@
 </template>
 
 <style>
+.disabled-lantern #dl{
+  display: none;
+}
+
+.enabled-lantern #dl{
+  display: block!important;
+}
+
 #dl {
   /* pointer-events: none; */
   position: fixed;
@@ -189,6 +197,12 @@
 .night .deng-box2,
 .night .deng-box1 {
   background: transparent !important;
+}
+
+@media screen and (max-width: 1279px) {
+  .dl {
+    transform: scale(0.8);
+  }
 }
 
 @media screen and (max-width: 560px) {
